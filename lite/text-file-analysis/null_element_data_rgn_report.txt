@@ -1,0 +1,20 @@
+CONFIGURATION
+subset: beamline IN (7-3, 9-3), format/ascii_path in F mode, has_med=1
+filter: element IS NULL AND scan_category = data
+local_root: /Users/stetef/Library/CloudStorage/GoogleDrive-stetef@stanford.edu/Shared drives/XAS_Beamline_Data
+
+TOTAL_PATHS
+8
+
+RGN_LINE_COUNTS (count|line)
+8|time_scan.rgn
+
+PATHS
+2017_7-3_Jun_SS/Mnazpyanion_012_A.001
+2017_7-3_Jun_SS/Mnazpyanion_013_A.001
+2017_7-3_Jun_SS/Mnazpyanion_014_A.001
+2017_7-3_Jun_SS/Mnazpyanion_015_A.001
+2017_7-3_Jun_SS/Mnazpyanion_016_A.001
+2017_7-3_Jun_SS/Mnazpyanion_019_A.001
+2017_7-3_Jun_SS/Mnazpyanion_020_A.001
+2017_7-3_Jun_SS/Mnazpyanion_021_A.001
