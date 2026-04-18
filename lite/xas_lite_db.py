@@ -208,7 +208,6 @@ def create_schema(conn: sqlite3.Connection) -> None:
             dir_name TEXT NOT NULL UNIQUE,
             year INTEGER,
             beamline TEXT,
-            owner TEXT,
             depositor_name TEXT
         );
 
@@ -314,19 +313,17 @@ def mark_folder_complete(conn: sqlite3.Connection, folder_name: str, files_inser
 
 def ensure_session(conn: sqlite3.Connection, session_dir: str, depositor_name: str | None = None) -> int:
     year, beamline = parse_session_dir(session_dir)
-    owner = None
 
     conn.execute(
         """
-        INSERT INTO sessions (dir_name, year, beamline, owner, depositor_name)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO sessions (dir_name, year, beamline, depositor_name)
+        VALUES (?, ?, ?, ?)
         ON CONFLICT(dir_name) DO UPDATE SET
             year = COALESCE(sessions.year, excluded.year),
             beamline = COALESCE(sessions.beamline, excluded.beamline),
-            owner = COALESCE(sessions.owner, excluded.owner),
             depositor_name = COALESCE(sessions.depositor_name, excluded.depositor_name)
         """,
-        (session_dir, year, beamline, owner, depositor_name),
+        (session_dir, year, beamline, depositor_name),
     )
     row = conn.execute("SELECT id FROM sessions WHERE dir_name = ?", (session_dir,)).fetchone()
     if row is None:
